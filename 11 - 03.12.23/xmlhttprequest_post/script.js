@@ -24,7 +24,7 @@ function getSingleUser() {
 
     xhr.onload = () => {
         // JSON.parse() --> Convert JSON text to Javascript object
-        const userObj = JSON.parse(xhr.responseText);
+        const userObj = JSON.parse(xhr.responseText);S
 
         // Iterate / loop over all attributes in the 'responseObj'
         for (let prop in userObj) {
