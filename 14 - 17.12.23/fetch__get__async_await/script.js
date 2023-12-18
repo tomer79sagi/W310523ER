@@ -8,13 +8,6 @@ async function getData() {
   if (response.ok) { // if HTTP status is within the range of 200 and 299
     return response.json(); // Similar to JSON.parse();
   }
-
-  // 2. 2nd option, similar to Promise with .then() and .catch()
-  // fetch('https://jsonplaceholder.typicode.com/posts')
-  //   .then(data => {
-  //     // ... Scope
-  //   })
-  //   .catch();
 }
 
 // -- VIEW --
