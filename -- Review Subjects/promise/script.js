@@ -1,33 +1,3 @@
-// function getNumber() {
-//   setTimeout(() => {
-//     const myNum = Math.random();
-//     if (myNum > 0.5) {
-//       document.getElementById('app').innerHTML = `${myNum}: Success`;
-//     } else {
-//       document.getElementById('app').innerHTML = `${myNum}: Error`;
-//     }
-//   }, 2000);
-// };
-
-
-// function getNumber() {
-//   setTimeout(() => {
-//     const myNum = Math.random();
-//     if (myNum > 0.5) {
-//       itWorked(myNum);
-//     } else {
-//       myError(myNum);
-//     }
-//   }, 2000);
-// };
-
-// function itWorked(myNum) {
-//   document.getElementById('app').innerHTML = `${myNum}: Success`;
-// }
-
-// function myError(myNum) {
-//   document.getElementById('app').innerHTML = `${myNum}: Error`;
-// }
 
 async function getNumber() {
   
