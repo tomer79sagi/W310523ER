@@ -46,7 +46,7 @@ let agesObj2: {
 // Assignment
 agesObj2 = {
   counter: 4,
-  ages: ['44', '33', '77', 44, 11, 99]
+  ages: ['44', '33', '77', 44, 11, 99, '44', 22]
 }
 
 
