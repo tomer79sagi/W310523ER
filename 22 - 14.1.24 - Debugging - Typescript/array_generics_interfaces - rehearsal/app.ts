@@ -37,6 +37,10 @@ function displayQuantities() {
     uiArr.push(new Car(1, 'Subaru', 1, 2019));
     uiArr.push(new Car(2, 'Mazda', 1, 2022));
 
+    // CASTING of type IStockUI to Car
+    const car = uiArr[0] as Car;
+    console.log(`Car details: ${car.name} ${car.year}`);
+
     const divOutput = document.getElementById('output') as HTMLElement;
     for (let uiP of uiArr) {
         divOutput.innerHTML += `${uiP.type} - ${uiP.quantity}<br/>`;
