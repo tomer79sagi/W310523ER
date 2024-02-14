@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,13 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __importDefault(require("axios"));
+import axios from './node_modules/axios';
 // ---- THE AXIOS OBJECT
-const api = axios_1.default.create({
+const api = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com',
     headers: {
         'Content-Type': 'application/json'
@@ -40,4 +35,19 @@ const getPostById = (id) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error('Failed to fetch user');
     }
 });
-alert(getPosts());
+function updateUI(data) {
+    let htmlContent = '';
+    // לולאה שעוברת על כל האיברים מהמערך שהתקבל מהתשובה של השרת
+    for (let post of data) {
+        htmlContent += `
+      <tr>
+        <td>${post.userId}</td>
+        <td>${post.id}</td>
+        <td>${post.title}</td>
+        <td>${post.body}</td>
+      </tr>
+    `;
+    }
+    document.getElementById('output').innerHTML = `<table>${htmlContent}</table>`;
+}
+updateUI(getPosts());

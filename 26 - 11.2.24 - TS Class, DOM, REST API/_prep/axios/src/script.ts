@@ -39,4 +39,22 @@ const getPostById = async (id: number): Promise<Post> => {
   }
 };
 
-alert(getPosts());
+function updateUI(data: any): void {   // משתנה שישמור את התוכן של הטבלה שיתעדכן בכל איטרציה של הלולאה
+  let htmlContent = '';
+  
+  // לולאה שעוברת על כל האיברים מהמערך שהתקבל מהתשובה של השרת
+  for (let post of data) {
+    htmlContent += `
+      <tr>
+        <td>${post.userId}</td>
+        <td>${post.id}</td>
+        <td>${post.title}</td>
+        <td>${post.body}</td>
+      </tr>
+    `;
+  }
+
+  document.getElementById('output')!.innerHTML = `<table>${htmlContent}</table>`;
+}
+
+updateUI(getPosts());
