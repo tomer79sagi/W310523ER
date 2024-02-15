@@ -8,6 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a, _b, _c, _d;
+;
 // -- MODEL --
 // 1. Makes call to server
 // 2. Returns a Promise object
@@ -40,6 +42,20 @@ function postData() {
         }
     });
 }
+function putData(postObj) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`https://jsonplaceholder.typicode.com/posts/${postObj.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(postObj),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        if (response.ok) { // if HTTP status is within the range of 200 and 299
+            return response.json(); // Similar to JSON.parse();
+        }
+    });
+}
 // -- VIEW --
 // Responsible for updating the UI with data
 // אחראי על עדכון הממשק משתמש באמצעות דאטה שהוא מקבל כקלט לפונקציה
@@ -60,14 +76,39 @@ function updateUI(data) {
     document.getElementById('output').innerHTML = `<table>${htmlContent}</table>`;
 }
 // -- CONTROL --
-function main() {
+function apiGET() {
     return __awaiter(this, void 0, void 0, function* () {
         // 1. Get list of posts from server - GET
         let data = yield getData();
         updateUI(data);
-        // 2. Create new post on server - POST
-        data = yield postData();
-        // alert(data);
     });
 }
-main();
+function apiPOST() {
+    return __awaiter(this, void 0, void 0, function* () {
+        // 2. Create new post on server - POST
+        const response = yield postData();
+        if (response.id)
+            alert(`Successfully created a new Post object. New ID is ${response.id}.`);
+    });
+}
+function apiPUT() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const newPost = {
+            id: 19,
+            title: 'New Post',
+            body: 'This is a new post!',
+            userId: 1,
+        };
+        const response = yield putData(newPost);
+        if (response.id)
+            alert(`Successfully updated Post with ID ${response.id}.`);
+    });
+}
+function apiDELETE() {
+    return __awaiter(this, void 0, void 0, function* () {
+    });
+}
+(_a = document.getElementById('btnGet')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', apiGET);
+(_b = document.getElementById('btnPost')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', apiPOST);
+(_c = document.getElementById('btnPut')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', apiPUT);
+(_d = document.getElementById('btnDelete')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', apiDELETE);

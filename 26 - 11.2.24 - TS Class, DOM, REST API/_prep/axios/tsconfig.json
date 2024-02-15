@@ -2,9 +2,8 @@
     
   "compilerOptions": {
   
-  "target": "es6",
-  
-  "module": "NodeNext",
+  "target": "es2016",
+  "module": "es6",
   
   "lib": ["dom", "dom.iterable", "esnext"],
   
@@ -27,7 +26,7 @@
   "isolatedModules": true,
   
   "jsx": "react-jsx",
-  "moduleResolution": "NodeNext"
+  "moduleResolution": "node"
   
   },
   
