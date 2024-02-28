@@ -13,8 +13,7 @@ class Clock extends Component {
         // Initialize the 'state' object of the component
         // Automatically provided to us by the React Component classs
         this.state = { 
-            date: props.date,
-            name: props.name
+            date: props.date
         };
     }
 

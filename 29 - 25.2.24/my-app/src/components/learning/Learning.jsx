@@ -1,11 +1,16 @@
-import React from 'react';
 import Clock from './Clock';
+import PersonalDetails from './PersonalDetails';
 
 const Learning = () => {
   return (
     <div>
       <h3>Learning</h3>
-      <Clock date={ new Date() }/>
+
+      <h4>Clock</h4>
+      <Clock date={ new Date() } name='Tomer' phone='052'/>
+
+      <h4>Personal Details</h4>
+      <PersonalDetails/>
     </div>
   )
 }
