@@ -1,0 +1,13 @@
+.clock div {
+    display: inline-block;
+}
+
+.clock div:nth-child(1) {
+    font-weight: bold;
+}
+
+.clock div:nth-child(2) {
+    color: red;
+    font-size: 1.5em;
+    margin-left: 20px;
+}
