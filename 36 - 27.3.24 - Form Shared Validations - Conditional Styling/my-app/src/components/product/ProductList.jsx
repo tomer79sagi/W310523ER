@@ -61,7 +61,7 @@ const ProductList = () => {
                 <div>
 
                     { uiState === UI_STATE.CREATE && <ProductNew callbackSuccess={productCreated}/> }   
-                    { uiState === UI_STATE.EDIT && <ProductEdit product={selectedProduct}/> }   
+                    { uiState === UI_STATE.EDIT && <ProductEdit selectedProduct={selectedProduct} x="tomer"/> }   
 
                 </div>
 
