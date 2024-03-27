@@ -43,9 +43,10 @@ const ProductNew = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const lclErrors = product.validate();
 
         // 1. Check if form is valid?
-        if (validateForm()) {
+        if (Object.keys(lclErrors).length === 0) {
             // 2. Success
             setMessage("Successfully created a new product.");
             console.log(product);
@@ -53,34 +54,10 @@ const ProductNew = (props) => {
             props.callbackSuccess(product);
         } else {
             // 3. Fail
-            setMessage("Invalid form values.")
+            setMessage("Invalid form values.");
+            setErrors(lclErrors);
             // console.log('Errors');
         }
-    }
-
-    const validateForm = () => {
-        let formIsValid = true;
-        const formErrors = {};
-
-        // Validate 'ID' field - check if there is a 'value' in the 'ID' input field
-        if (!product.id) {
-            formIsValid = false;
-            formErrors['id'] = "'ID' field must not be empty."
-        }
-
-        // Validate 'Price' field - Check if exists, positive number, with highest value is 9999
-        if (!product.price) {
-            formIsValid = false;
-            formErrors['price'] = "'Price' field must not be empty."
-        } else { // ==> product.price exists
-            if (product.price <= 0 || product.price >= 100000) {
-                formIsValid = false;
-                formErrors['price'] = "'Price' value must be between 1 and 99,999."
-            }
-        }
-
-        setErrors(formErrors);
-        return formIsValid;
     }
 
     useEffect(() => {

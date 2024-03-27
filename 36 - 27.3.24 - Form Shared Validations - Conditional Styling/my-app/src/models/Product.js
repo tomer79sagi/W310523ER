@@ -14,6 +14,26 @@ export default class Product
         this.price = price;
         this.quantity = quantity;
     }
+
+    validate = () => {
+        const formErrors = {};
+
+        // Validate 'ID' field - check if there is a 'value' in the 'ID' input field
+        if (!this.id) {
+            formErrors['id'] = "'ID' field must not be empty."
+        }
+
+        // Validate 'Price' field - Check if exists, positive number, with highest value is 9999
+        if (!this.price) {
+            formErrors['price'] = "'Price' field must not be empty."
+        } else { // ==> product.price exists
+            if (this.price <= 0 || this.price >= 100000) {
+                formErrors['price'] = "'Price' value must be between 1 and 99,999."
+            }
+        }
+
+        return formErrors;
+    }
 }
 
 export const PRODUCTS = [
