@@ -17,7 +17,8 @@ const ProductList = () => {
     const ACTION_TYPES = {
         PRODUCT_CREATE: 'PRODUCT_CREATE',
         PRODUCT_CREATED: 'PRODUCT_CREATED',
-        PRODUCT_EDIT: 'PRODUCT_EDIT'
+        PRODUCT_EDIT: 'PRODUCT_EDIT',
+        PRODUCT_UPDATED: 'PRODUCT_UPDATED'
     }
 
     // 2. Define the REDUCER function
@@ -34,6 +35,10 @@ const ProductList = () => {
 
             case ACTION_TYPES.PRODUCT_EDIT:
                 return { ...state, selectedProduct: action.payload, uiState: UI_STATE.EDIT };
+
+            case ACTION_TYPES.PRODUCT_UPDATED:
+                const productsNew = state.products.map(eProduct => eProduct.id === action.payload.id ? action.payload : eProduct);
+                return { ...state, selectedProduct: null, products: productsNew, uiState: UI_STATE.NONE };
         }
     }
 
@@ -45,14 +50,9 @@ const ProductList = () => {
     }
 
     // 4. Initialize the 'useReducer' hook
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);    
 
     // 5. Use the 'reducer' --> the dispatch with actions, throughout the code
-
-
-    // const [products, setProducts] = useState(PRODUCTS);
-    // const [selectedProduct, setSelectedProduct] = useState();
-    // const [uiState, setUIState] = useState(UI_STATE.NONE);
 
 
     // This function is a 'callback' function that receives the newly created product
@@ -61,14 +61,7 @@ const ProductList = () => {
 
     // }
 
-    const productUpdated = (updatedProduct) => {
-        // const productsNew = products.map(existingProduct => existingProduct.id === updatedProduct.id ? updatedProduct : existingProduct);
-
-        // setProducts(productsNew);
-        // setUIState(UI_STATE.NONE);
-    }
-
-    // if (!products) return '<div>No results found</div>';
+    if (!state.products) return '<div>No results found</div>';
 
     return (
         <div>
@@ -84,7 +77,7 @@ const ProductList = () => {
 
                     <tbody>
 
-                        { products.map(product => (
+                        { state.products.map(product => (
                             <tr key={product.id}>
                                 <td>{ product.id }</td>
                                 <td>{ product.name }</td>
@@ -105,10 +98,12 @@ const ProductList = () => {
 
                     {/* { uiState === UI_STATE.CREATE && <ProductNew callbackSuccess={productCreated}/> }    */}
 
-                    { state.uiState === UI_STATE.CREATE && <ProductNew callbackSuccess={
-                        (product) => dispatch({ type: ACTION_TYPES.PRODUCT_CREATED, payload: product }) }/> }  
+                    { state.uiState === UI_STATE.CREATE && <ProductNew
+                        callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_CREATED, payload: product }) }/> }  
 
-                    { state.uiState === UI_STATE.EDIT && <ProductEdit selectedProduct={selectedProduct} callbackSuccess={productUpdated}/> }   
+                    { state.uiState === UI_STATE.EDIT && <ProductEdit 
+                        selectedProduct={state.selectedProduct}
+                        callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_UPDATED, payload: product })}/> }   
 
                 </div>
 
