@@ -34,13 +34,14 @@ const useProductForm = (callbackSuccess, inProduct) => {
             console.log(product);
             // Make the callback function received from props (part 2 of previous exercise)
 
-            // Add a UID to the product object
-            const currProduct = new Product(product.id, product.name, product.price, product.quantity);
-            
-            if (isCreateMode)
+            if (isCreateMode) { // CREATE MODE
+                // Add a UID to the product object
+                const currProduct = new Product(product.id, product.name, product.price, product.quantity);
                 currProduct.generateUID();
-
-            setProduct(currProduct);
+                callbackSuccess(currProduct);
+            } else { // EDIT MODE
+                callbackSuccess(product);
+            }
 
         } else {
             // 3. Fail
@@ -57,10 +58,9 @@ const useProductForm = (callbackSuccess, inProduct) => {
     }, [errors]);
 
     useEffect(() => {
-        if (isCreateMode && product.id) {
-            callbackSuccess(product);
-        }
-    }, [product.id]);
+        if (inProduct)
+            setProduct(inProduct);
+    }, [inProduct]);
 
     return [product, handleChange, handleSubmit, errors, message];
 }

@@ -9,6 +9,7 @@ import EventHandlingCC from './EventHandlingCC';
 import Counter from './counter-exercise/Counter';
 import CounterHookTest from './counter-hook/CounterHookTest';
 import ClockUsingHook from './clocks/ClockUsingHook';
+import ProductListAPI from './api/ProductListAPI';
 
 const Learning = () => {
   let a = new Date();
@@ -19,9 +20,15 @@ const Learning = () => {
       <h3>Learning</h3>
 
       <hr style={{marginTop: '15px'}}/>
+      <h4>ProductList - API</h4>
+      <ProductListAPI/>
+
+      <hr style={{marginTop: '15px'}}/>
+      <h4>Clock - Hook</h4>
       <ClockUsingHook/>
 
       <hr style={{marginTop: '15px'}}/>
+      <h4>Counter - Hook</h4>
       <CounterHookTest/>
 
       <hr style={{marginTop: '15px'}}/>
