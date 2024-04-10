@@ -1,0 +1,17 @@
+.mainScreen {
+    width: 900px;
+    margin: 0px auto;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+}
+
+.mainContent div {
+    width: 600px;
+}
+
+.detailsPanel {
+    width: 200px;
+}

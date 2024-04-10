@@ -55,46 +55,54 @@ const ProductList = () => {
     if (!state.products) return '<div>No results found</div>';
 
     return (
-        <div>
+        <div className="mainScreen">
 
             <div>
                 <h2 className='center'>Product List</h2>
                 <button onClick={() => dispatch({type: ACTION_TYPES.PRODUCT_CREATE, payload: null})}>Add New Product</button>
             </div>
 
-            <div className='mainProductList'>
-
-                <table>
-
-                    <tbody>
-
-                        { state.products.map(product => (
-                            <tr key={product.id}>
-                                <td>{ product.id }</td>
-                                <td>{ product.name }</td>
-                                <td>{ product.price }</td>
-                                <td>
-                                    {/* <button onClick={() => alert(`${product.id} - ${product.name}`)}>Show Details</button> */}
-                                    <button onClick={() => alert(`${product.id} - ${product.name}`)}>Show</button>
-                                    <button onClick={() => dispatch({type: ACTION_TYPES.PRODUCT_EDIT, payload: product }) }>Edit</button>
-                                </td>
-                            </tr>
-                        ))}
-
-                    </tbody>
-
-                </table>
+            <div className='mainContent'>
 
                 <div>
 
-                    {/* { uiState === UI_STATE.CREATE && <ProductNew callbackSuccess={productCreated}/> }    */}
+                    <table>
 
-                    { state.uiState === UI_STATE.CREATE && <ProductNew
-                        callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_CREATED, payload: product }) }/> }  
+                        <tbody>
 
-                    { state.uiState === UI_STATE.EDIT && <ProductEdit 
-                        selectedProduct={state.selectedProduct}
-                        callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_UPDATED, payload: product })}/> }   
+                            { state.products.map(product => (
+                                <tr key={product.id}>
+                                    <td>{ product.id }</td>
+                                    <td>{ product.name }</td>
+                                    <td>{ product.price }</td>
+                                    <td>
+                                        {/* <button onClick={() => alert(`${product.id} - ${product.name}`)}>Show Details</button> */}
+                                        <button onClick={() => alert(`${product.id} - ${product.name}`)}>Show</button>
+                                        <button onClick={() => dispatch({type: ACTION_TYPES.PRODUCT_EDIT, payload: product }) }>Edit</button>
+                                    </td>
+                                </tr>
+                            ))}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div className="detailsPanel">
+
+                    <div>
+
+                        {/* { uiState === UI_STATE.CREATE && <ProductNew callbackSuccess={productCreated}/> }    */}
+
+                        { state.uiState === UI_STATE.CREATE && <ProductNew
+                            callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_CREATED, payload: product }) }/> }  
+
+                        { state.uiState === UI_STATE.EDIT && <ProductEdit 
+                            selectedProduct={state.selectedProduct}
+                            callbackSuccess={(product) => dispatch({ type: ACTION_TYPES.PRODUCT_UPDATED, payload: product })}/> }   
+
+                    </div>
 
                 </div>
 
