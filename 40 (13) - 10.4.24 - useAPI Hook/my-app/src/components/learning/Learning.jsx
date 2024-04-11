@@ -10,7 +10,7 @@ import Counter from './counter-exercise/Counter';
 import CounterHookTest from './counter-hook/CounterHookTest';
 import ClockUsingHook from './clocks/ClockUsingHook';
 import ProductListAPI from './api/ProductListAPI';
-import ChuckNorrisJokes from './chuck-norris-jokes/ChuckNorrisJokes';
+import ChuckNorrisJokesHook from './chuck-norris-jokes/ChuckNorrisJokesHook';
 
 const Learning = () => {
   let a = new Date();
@@ -22,7 +22,7 @@ const Learning = () => {
 
       <hr style={{marginTop: '15px'}}/>
       <h4>Chuck Norries Jokes - API</h4>
-      <ChuckNorrisJokes/>
+      <ChuckNorrisJokesHook/>
 
       <hr style={{marginTop: '15px'}}/>
       <h4>ProductList - API</h4>
