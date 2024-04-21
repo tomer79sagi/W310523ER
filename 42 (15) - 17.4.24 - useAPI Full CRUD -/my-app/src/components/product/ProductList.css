@@ -1,0 +1,27 @@
+.mainScreen {
+    width: 1200px;
+    margin: 0px auto;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+}
+
+.mainContent div {
+    width: 80%;
+}
+
+.mainContent div td:nth-child(2) {
+    width: 1000px;
+}
+
+.mainContent div td:nth-child(4) {
+    width: 120px;
+}
+
+.detailsPanel {
+    width: 20%;
+    max-width: 100px;
+}
