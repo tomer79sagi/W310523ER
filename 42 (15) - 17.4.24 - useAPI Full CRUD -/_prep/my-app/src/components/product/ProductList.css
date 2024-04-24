@@ -1,0 +1,43 @@
+.mainScreen {
+    width: 1300px;
+    margin: 0px auto;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+}
+
+.mainContent table {
+    border-collapse: collapse;
+}
+
+.mainContent div {
+    width: 80%;
+    margin: 0px 10px;
+}
+
+.mainContent div td:nth-child(1) {
+    width: 50px;
+    text-align: center;
+}
+
+.mainContent div td:nth-child(2) {
+    width: 1000px;
+}
+
+.mainContent div td:nth-child(3) {
+    width: 100px;
+}
+
+.mainContent div td:nth-child(4) {
+    width: 100px;
+}
+
+.detailsPanel {
+    width: 20%;
+}
+
+.hovered-product {
+    background-color: lightslategray;
+}
