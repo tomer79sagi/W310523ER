@@ -1,0 +1,7 @@
+.error {
+    text-decoration: underline;
+}
+
+.success {
+    font-weight: bold;
+}
