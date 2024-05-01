@@ -9,39 +9,46 @@ import Login from './components/auth/Login';
 import { ThemeProvider } from './contexts/ThemeContext';
 import APIContext from './contexts/APIContext';
 
+import { Provider } from 'react-redux';
+import store from './Store';
+
 function App() {
   // .....
 
   return (
     <div className="App">
 
-      <ThemeProvider>
-        <APIContext.Provider value='https://fakestoreapi.com/products'>
+      <Provider store={store}>
 
-          <BrowserRouter>
+        <ThemeProvider>
+          <APIContext.Provider value='https://fakestoreapi.com/products'>
 
-            <nav className="horizontal-nav">
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/learning">Learning</Link></li>
-                <li><Link to="/forms">Forms</Link></li>
-                <li><Link to="/login">Login</Link></li>
-              </ul>
-            </nav>
+            <BrowserRouter>
 
-            <Routes>
+              <nav className="horizontal-nav">
+                <ul>
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/learning">Learning</Link></li>
+                  <li><Link to="/forms">Forms</Link></li>
+                  <li><Link to="/login">Login</Link></li>
+                </ul>
+              </nav>
 
-              <Route path="/learning" element={<Learning/>}/>
-              <Route path="/forms" element={<FormsMain/>}/>
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/" element={<Home/>}/>
+              <Routes>
 
-            </Routes>
+                <Route path="/learning" element={<Learning/>}/>
+                <Route path="/forms" element={<FormsMain/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<Home/>}/>
 
-          </BrowserRouter>
+              </Routes>
 
-        </APIContext.Provider>
-      </ThemeProvider>
+            </BrowserRouter>
+
+          </APIContext.Provider>
+        </ThemeProvider>
+
+      </Provider>
 
     </div>
   );

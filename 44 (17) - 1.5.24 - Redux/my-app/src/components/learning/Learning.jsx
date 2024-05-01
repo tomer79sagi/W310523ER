@@ -14,6 +14,8 @@ import ChuckNorrisJokesHook from './chuck-norris-jokes/ChuckNorrisJokesHook';
 import ThemedButton from './contexts/ThemedButton';
 import ThemedButtonHook from './contexts/ThemedButtonHook';
 import ThemedButtonHookSetter from './contexts/ThemedButtonHookSetter';
+import AddTodo from './todos/AddTodo';
+import Todos from './todos/Todos';
 
 const Learning = () => {
   let a = new Date();
@@ -22,6 +24,12 @@ const Learning = () => {
   return (
     <div>
       <h3>Learning</h3>
+
+      <hr style={{marginTop: '15px'}}/>
+      <h4>Redux - Todos</h4>
+      <AddTodo/>
+      <br/>
+      <Todos/>
 
       <hr style={{marginTop: '15px'}}/>
       <h4>ContextAPI - Themed Button</h4>
