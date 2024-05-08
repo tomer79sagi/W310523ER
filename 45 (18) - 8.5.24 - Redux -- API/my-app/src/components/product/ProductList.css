@@ -1,0 +1,35 @@
+.mainScreen {
+    width: 1200px;
+    margin: 0px auto;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+}
+
+.mainContent table {
+    border-collapse: collapse;
+}
+
+.mainContent div {
+    width: 80%;
+}
+
+.mainContent div td:nth-child(2) {
+    width: 900px;
+}
+
+.mainContent div td:nth-child(4) {
+    width: 220px;
+}
+
+.detailsPanel {
+    width: 20%;
+    max-width: 100px;
+}
+
+.hoveredProduct {
+    background-color: gray;
+}
