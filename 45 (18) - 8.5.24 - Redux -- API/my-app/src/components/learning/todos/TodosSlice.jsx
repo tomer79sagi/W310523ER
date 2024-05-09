@@ -19,7 +19,9 @@ export const TodosSlice = createSlice({
             // 'action.payload' must reference the todo object to update and include the 'text' to update
             return state.map(td => td.id === action.payload.id ? action.payload : td);
         },
-        removeTodo: (state, action) => state.filter(td => td.id !== action.payload.id)
+        removeTodo: (state, action) => {
+            return state.filter(td => td.id !== action.payload.id);
+        }
     }
 });
 

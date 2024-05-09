@@ -7,6 +7,7 @@ import ProductView from './ProductView';
 
 import APIContext from '../../contexts/APIContext';
 
+import { produce } from 'immer';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from './ProductSlice';
 
@@ -14,8 +15,6 @@ const ProductList = () => {
       
     const [data, error, isLoading, apiCall] = useAPI();
     const apiURL = useContext(APIContext);
-    const reduxStatus = useSelector(state => state.status);
-    const dispatchRedux = useDispatch();
 
     const UI_STATE = {
         NONE: 'NONE',
@@ -52,36 +51,61 @@ const ProductList = () => {
         switch (action.type) {
 
             case ACTION_TYPES.PRODUCT_HOVERED:
-                return { ...state, hoveredProduct: action.payload };
-
+                return produce(state, draftState => { draftState.hoveredProduct = action.payload });
+    
             case ACTION_TYPES.PRODUCT_UNHOVERED:
-                return { ...state, hoveredProduct: null };
-
+                return produce(state, draftState => { draftState.hoveredProduct = null });
+    
             case ACTION_TYPES.PRODUCTS_RECEIVED:
-                return { ...state, products: action.payload };
+                return produce(state, draftState => { draftState.products = action.payload });
 
             case ACTION_TYPES.PRODUCT_CREATE:
-                return { ...state, uiState: UI_STATE.CREATE };
+                return produce(state, draftState => { draftState.uiState = UI_STATE.CREATE });
 
             case ACTION_TYPES.PRODUCT_CREATED:
-                return { ...state, products: [...state.products, action.payload], uiState: UI_STATE.NONE };
-
+                return produce(state, draftState => {
+                    draftState.products.push(action.payload);
+                    draftState.uiState = UI_STATE.NONE;
+                });
+    
             case ACTION_TYPES.PRODUCT_EDIT:
-                return { ...state, selectedProduct: action.payload, uiState: UI_STATE.EDIT };
+                return produce(state, draftState => {
+                    draftState.selectedProduct = action.payload;
+                    draftState.uiState = UI_STATE.EDIT;
+                });
 
             case ACTION_TYPES.PRODUCT_UPDATED:
-                const productsNew = state.products.map(eProduct => eProduct.id === action.payload.id ? action.payload : eProduct);
-                return { ...state, selectedProduct: null, products: productsNew, uiState: UI_STATE.NONE };
-
+                return produce(state, draftState => {
+                    const index = draftState.products.findIndex(p => p.id === action.payload.id);
+                    if (index !== -1) {
+                        draftState.products[index] = action.payload;
+                    }
+                    draftState.selectedProduct = null;
+                    draftState.uiState = UI_STATE.NONE;
+                });
+    
             case ACTION_TYPES.PRODUCT_VIEW:
-                return { ...state, selectedProduct: action.payload, uiState: UI_STATE.VIEW };
-                
+                return produce(state, draftState => {
+                    draftState.selectedProduct = action.payload;
+                    draftState.uiState = UI_STATE.VIEW;
+                });
+    
             case ACTION_TYPES.PRODUCT_DELETE:
-                apiCall(apiURL, METHOD.DELETE, {id: action.payload.id});
-                return { ...state, uiAction: UI_ACTION.DELETE_ONE, selectedProduct: action.payload };
-
+                // Side effects like API calls typically shouldn't be inside reducers, consider moving this to middleware like redux-thunk or redux-saga
+                apiCall(apiURL, METHOD.DELETE, {id: action.payload.id}); // Consider handling this outside
+                return produce(state, draftState => {
+                    draftState.uiAction = UI_ACTION.DELETE_ONE;
+                    draftState.selectedProduct = action.payload;
+                });
+    
             case ACTION_TYPES.PRODUCT_DELETED:
-                return { ...state, uiAction: UI_ACTION.NONE, products: state.products.filter(p => p.id !== action.payload.id)};
+                return produce(state, draftState => {
+                    draftState.uiAction = UI_ACTION.NONE;
+                    draftState.products = draftState.products.filter(p => p.id !== action.payload.id);
+                });
+    
+            default:
+                return state;
         }
     }
 
@@ -96,28 +120,48 @@ const ProductList = () => {
 
     // 4. Initialize the 'useReducer' hook
     const [state, dispatch] = useReducer(reducer, initialState);
-    
-    // Initialization code
-    useEffect(() => {
-        // dispatchRedux(fetchProducts());
-        apiCall(apiURL, METHOD.GET_ALL);
-    }, [apiURL]);
+    const products = useSelector(s => s.products);
+    const productStatus = useSelector(s => s.products.status);
+    const dispatchRedux = useDispatch();
+
 
     useEffect(() => {
-        if(data) {
-            if (state.uiAction === UI_ACTION.GET_ALL) {
-                const cleanedData = data.map(apiProduct => {
-                    apiProduct.name = apiProduct.title;
-                    delete apiProduct.title;
-                    return apiProduct;
-                });
+        dispatchRedux(fetchProducts());
+    }, []);
 
-                dispatch({type: ACTION_TYPES.PRODUCTS_RECEIVED, payload: cleanedData});
-            } else if (state.uiAction === UI_ACTION.DELETE_ONE) {
-                dispatch({type: ACTION_TYPES.PRODUCT_DELETED, payload: state.selectedProduct});
-            }
+    useEffect(() => {
+        if (products && (productStatus === 'succeeded' || productStatus === 'deleted')) {
+            let cleanedData = products.items.map(apiProduct => {
+                let pCopy = {...apiProduct};
+                pCopy.name = pCopy.title;
+                delete pCopy.title;
+                return pCopy;
+            });
+
+            dispatch({type: ACTION_TYPES.PRODUCTS_RECEIVED, payload: cleanedData});
         }
-    }, [data, state.uiAction]);
+    }, [products]);
+
+    
+    // useEffect(() => {
+    //     apiCall(apiURL, METHOD.GET_ALL);
+    // }, [apiURL]);
+
+    // useEffect(() => {
+    //     if(data) {
+    //         if (state.uiAction === UI_ACTION.GET_ALL) {
+    //             const cleanedData = data.map(apiProduct => {
+    //                 apiProduct.name = apiProduct.title;
+    //                 delete apiProduct.title;
+    //                 return apiProduct;
+    //             });
+
+    //             dispatch({type: ACTION_TYPES.PRODUCTS_RECEIVED, payload: cleanedData});
+    //         } else if (state.uiAction === UI_ACTION.DELETE_ONE) {
+    //             dispatch({type: ACTION_TYPES.PRODUCT_DELETED, payload: state.selectedProduct});
+    //         }
+    //     }
+    // }, [data, state.uiAction]);
 
     if (isLoading && !state.products) return <div>Loading...</div>
     if (error) return <div>Error: { error }</div>
