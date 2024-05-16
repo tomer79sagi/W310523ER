@@ -35,7 +35,7 @@ const Products = () => {
             { products.map(product => (
                 <div key={product.id} className='product_item'>
                     <Link to={`/product/${product.id}`}>
-                        <img src={product.images[0].replace('/"','').replace('[','').replace(']','').replace('"','')}></img>
+                        <img src={product.images[0].replace('/"','').replace('[','').replace('"','').replace(']','')}></img>
                     </Link>
                     <div>{product.title}</div>
                     <div>{product.price}</div>
