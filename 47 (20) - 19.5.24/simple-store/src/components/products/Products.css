@@ -1,0 +1,20 @@
+.product_list {
+    display: flex;
+    margin: 0px auto;
+    max-width: 1000px;
+    flex-wrap: wrap;
+}
+
+.product_item {
+    width: 150px;
+    min-height: 200px;
+}
+
+.product_item img {
+    width: 150px;
+}
+
+.product_item div {
+    display: inline-block;
+    flex: 1;
+}
