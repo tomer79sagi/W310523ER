@@ -38,7 +38,7 @@ const ProductEdit = () => {
                 navigate(`/`);
             } catch(error) {
                 console.log(error);
-                setError(error);
+                // setError(error);
                 setisLoading(false);
                 alert('Error updating product\n' + error);
                 navigate(`/product/${product_id}/edit`);
@@ -71,7 +71,7 @@ const ProductEdit = () => {
     }, []);
 
     // -- Alternative flows / side effects --
-    if (error) return <div>Error {error}</div>
+    if (error) return <div>Error {error.toString()}</div>
     if (isLoading) return <div>Loading...</div>
     if (!product) return <div>Product not found.</div>
 
