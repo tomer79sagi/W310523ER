@@ -45,6 +45,17 @@ const getProducts = (req, res) => {
   res.json(products);
 };
 
+const getOneProduct = (req, res) => {
+  const { id } = req.params;
+  const product = products.find(p => p.id == id);
+
+  if (product) {
+    res.json(product);
+  } else {
+    res.status(404).json({ message: 'Product not found' });
+  }
+}
+
 // Create a new product
 const createProduct = (req, res) => {
   const { name, price } = req.body;
@@ -82,4 +93,4 @@ const deleteProduct = (req, res) => {
   }
 };
 
-module.exports = { register, login, getProducts, createProduct, updateProduct, deleteProduct };
+module.exports = { register, login, getProducts, getOneProduct, createProduct, updateProduct, deleteProduct };

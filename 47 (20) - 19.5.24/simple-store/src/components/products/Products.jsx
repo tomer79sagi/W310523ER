@@ -14,7 +14,8 @@ const Products = () => {
         const fetchProducts = async () => {
             try {
                 setisLoading(true);
-                const response = await axios.get('https://fakestoreapi.com/products');        
+                // const response = await axios.get('https://fakestoreapi.com/products'); 
+                const response = await axios.get('http://localhost:3000/api/products');        
                 setProducts(response.data);
             } catch(error) {
                 console.log(error);
@@ -41,7 +42,7 @@ const Products = () => {
                     <div>{product.title}</div>
                     <div>{product.price}</div>
                     <div>
-                        <button onClick={ navigate(`/product/${product.id}/edit`) }>Edit</button>
+                        <button onClick={ () => navigate(`/product/${product.id}/edit`) }>Edit</button>
                     </div>
                 </div>
             ))}

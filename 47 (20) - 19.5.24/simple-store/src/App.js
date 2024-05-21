@@ -24,6 +24,8 @@ function App() {
             <ul>
               <li>
                 <Link to="/">Products</Link>
+              </li><li>
+                <Link to="/product/new">Create Product</Link>
               </li>
               {!token && (
                 <>
@@ -51,14 +53,12 @@ function App() {
         </header>
 
         <Routes>
+          <Route path="/" element={ <Products/> }/>
           <Route path="/auth/login" element={<Login/>}/>
           <Route path="/auth/register" element={<Register/>}/>
           <Route path="/product/:product_id" element={ <ProductDetails/> }/>
           <Route path="/product/:product_id/edit" element={ <ProductEdit/> }/>
-          <Route element={<ProtectedRoute />}>
-            <Route path="/product/new" element={<ProductNew />} />
-          </Route>
-          <Route path="/" element={ <Products/> }/>
+          <Route path="/product/new" element={<ProductNew />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
       

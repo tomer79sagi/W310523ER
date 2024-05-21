@@ -32,13 +32,16 @@ const ProductEdit = () => {
         const updateOneProduct = async () => {
             try {
                 setisLoading(true);
-                await axios.put(`https://fakestoreapi.com/products/${product_id}`, product);
+                // await axios.put(`https://fakestoreapi.com/products/${product_id}`, product);
+                await axios.put(`http://localhost:3000/api/products/${product_id}`, product);
                 setisLoading(false);
                 navigate(`/`);
             } catch(error) {
                 console.log(error);
                 setError(error);
                 setisLoading(false);
+                alert('Error updating product\n' + error);
+                navigate(`/product/${product_id}/edit`);
             }
         }
 
@@ -52,11 +55,13 @@ const ProductEdit = () => {
         const fetchOneProduct = async () => {
             try {
                 setisLoading(true);
-                const response = await axios.get(`https://fakestoreapi.com/products/${product_id}`);        
+                // const response = await axios.get(`https://fakestoreapi.com/products/${product_id}`);   
+                const response = await axios.get(`http://localhost:3000/api/products/${product_id}`);       
                 setProduct(response.data);
             } catch(error) {
                 console.log(error);
                 setError(error);
+                alert('Error viewing product\n' + error);
             } finally {
                 setisLoading(false);
             }
@@ -75,30 +80,32 @@ const ProductEdit = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <table className='productTable'>
-                    <tr>
-                        <td>ID</td>
-                        <td>{product.id}</td>
-                    </tr>
-                    <tr>
-                        <td>Title</td>
-                        <td>
-                            <input
-                                type="text"
-                                name='title'
-                                value={product.title}
-                                onChange={handleChange}
-                            />
-                            { formErrors['title'] }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Price</td>
-                        <td>{product.price}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>{product.description}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>{product.id}</td>
+                        </tr>
+                        <tr>
+                            <td>Title</td>
+                            <td>
+                                <input
+                                    type="text"
+                                    name='title'
+                                    value={product.title}
+                                    onChange={handleChange}
+                                />
+                                { formErrors['title'] }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>{product.price}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{product.description}</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <button>Update</button>
             </form>

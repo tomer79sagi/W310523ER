@@ -22,7 +22,7 @@ const ProductNew = ({ token }) => {
       setPrice('');
     } catch (error) {
       console.error('Error creating product', error);
-      alert('Error creating product');
+      alert('Error creating product\n' + error);
     }
   };
 

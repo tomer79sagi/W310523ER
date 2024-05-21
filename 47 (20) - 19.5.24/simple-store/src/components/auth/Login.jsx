@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import ShoppingCartRounded from '@mui/icons-material/ShoppingCartRounded';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -34,7 +36,9 @@ const Login = () => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <Button variant="text" startIcon={<ShoppingCartRounded />}>
+            Login
+        </Button>
       </form>
     </div>
   );

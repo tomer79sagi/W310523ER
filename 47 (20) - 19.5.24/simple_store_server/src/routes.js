@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login, getProducts, createProduct, updateProduct, deleteProduct } = require('./controllers');
+const { register, login, getProducts, getOneProduct, createProduct, updateProduct, deleteProduct } = require('./controllers');
 const { authenticateToken } = require('./middleware');
 
 const router = express.Router();
@@ -10,6 +10,7 @@ router.post('/login', login);
 
 // Product routes
 router.get('/products', getProducts);
+router.get('/products/:id', getOneProduct);
 router.post('/products', authenticateToken, createProduct);
 router.put('/products/:id', authenticateToken, updateProduct);
 router.delete('/products/:id', authenticateToken, deleteProduct);
